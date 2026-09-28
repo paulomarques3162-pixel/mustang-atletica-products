@@ -1,0 +1,14 @@
+{
+  "name": "Mustang Atlética — Loja Oficial",
+  "short_name": "Mustang",
+  "description": "Produtos oficiais da Mustang Atlética — Medicina Veterinária Anhanguera.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1F17",
+  "theme_color": "#0B1F17",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/brand-reference.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" }
+  ]
+}
