@@ -14,6 +14,7 @@ import { setStockAbsolute } from "../../services/inventory.service";
 import { hashPassword } from "../../lib/password";
 import { cancelOrder } from "../../services/order.service";
 import { toggleProductActive } from "./admin.service";
+import { refundPayment } from "../../payments/services/payment.service";
 
 export const adminRouter = Router();
 adminRouter.use(requireAuth, requireRole("SUPPORT"));
@@ -589,11 +590,9 @@ adminRouter.post(
   requireRole("MANAGER"),
   validate({ body: z.object({ amount: z.string().regex(/^\d+(\.\d{1,2})?$/).optional(), reason: z.string().max(200).optional() }) }),
   asyncHandler(async (req, res) => {
-    const { refundPayment } = await import("../../payments/services/payment.service");
-    const result = await refundPayment(req.params.id, req.body.amount, req.body.reason, req.auth!.sub);
-    res.json({ refund: result });
-  }),
-);
+  const result = await refundPayment(req.params.id, req.body.amount, req.body.reason, req.auth!.sub);
+  res.json({ refund: result });
+}),);
 
 /// ------------------------- Cupons -------------------------
 const couponSchema = z.object({

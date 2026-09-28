@@ -11,6 +11,7 @@ import { prisma } from "../../lib/prisma";
 import { getOrCreateCart } from "../cart/cart.service";
 import { BadRequest, UnprocessableEntity } from "../../lib/errors";
 import { audit } from "../../services/audit.service";
+import { quoteShipping } from "../../services/shipping.service";
 
 export const checkoutRouter = Router();
 
@@ -143,7 +144,6 @@ checkoutRouter.post(
 checkoutRouter.get(
   "/checkout/shipping",
   asyncHandler(async (req, res) => {
-    const { quoteShipping } = await import("../../services/shipping.service");
     const method = req.query.method === "delivery" ? "delivery" : "pickup";
     res.json({ quote: quoteShipping(method) });
   }),

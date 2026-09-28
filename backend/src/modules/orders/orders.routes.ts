@@ -6,7 +6,7 @@ import { asyncHandler } from "../../lib/asyncHandler";
 import { prisma } from "../../lib/prisma";
 import { Forbidden, NotFound } from "../../lib/errors";
 import { toMoneyString } from "../../lib/money";
-import { getPayment } from "../../payments/services/payment.service";
+import { getPayment, refreshPaymentStatus } from "../../payments/services/payment.service";
 
 export const ordersRouter = Router();
 
@@ -114,7 +114,6 @@ ordersRouter.post(
   "/payments/:id/refresh",
   requireAuth,
   asyncHandler(async (req, res) => {
-    const { refreshPaymentStatus } = await import("../../payments/services/payment.service");
     const payment = await prisma.payment.findUnique({
       where: { id: req.params.id },
       include: { order: true },
